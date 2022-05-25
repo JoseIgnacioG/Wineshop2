@@ -1,11 +1,11 @@
-package com.example.wineshop;
+package com.example.wineshop.models;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "wines_spa")
-class Wine {
+public class Wine {
     private @Id @GeneratedValue Long id;
     private String wine;
     @ManyToOne

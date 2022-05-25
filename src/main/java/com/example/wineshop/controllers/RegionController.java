@@ -1,7 +1,10 @@
-package com.example.wineshop;
+package com.example.wineshop.controllers;
 
 import java.util.List;
 
+import com.example.wineshop.models.Region;
+import com.example.wineshop.exceptions.RegionNotFoundException;
+import com.example.wineshop.repositories.RegionRepository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -1,4 +1,4 @@
-package com.example.wineshop;
+package com.example.wineshop.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,31 +6,20 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-class Region {
-
+public class Type {
     private @Id @GeneratedValue Long id;
     private String name;
 
-    private String country;
+    public Type(){}
 
-    Region() {}
-
-    Region(String name, String country) {
+    public Type(String name) {
         this.name = name;
-        this.country = country;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public Long getId() {
         return id;
     }
+
 
     public void setId(Long id) {
         this.id = id;
@@ -48,8 +37,8 @@ class Region {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Region region = (Region) o;
-        return Objects.equals(id, region.id) && Objects.equals(name, region.name);
+        Type type = (Type) o;
+        return Objects.equals(id, type.id) && Objects.equals(name, type.name);
     }
 
     @Override
@@ -59,10 +48,9 @@ class Region {
 
     @Override
     public String toString() {
-        return "Region{" +
+        return "Type{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", country='" + country + '\'' +
                 '}';
     }
 }

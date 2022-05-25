@@ -1,5 +1,8 @@
-package com.example.wineshop;
+package com.example.wineshop.controllers;
 
+import com.example.wineshop.models.Wine;
+import com.example.wineshop.exceptions.WineNotFoundException;
+import com.example.wineshop.repositories.WineRepository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-class WineController {
+public class WineController {
     private final WineRepository repository;
 
     WineController(WineRepository repository) {
