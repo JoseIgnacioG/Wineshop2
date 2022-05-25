@@ -22,27 +22,27 @@ public class WineryController {
 
     // Aggregate root
     // tag::get-aggregate-root[]
-    @GetMapping("/Winerys")
+    @GetMapping("/winerys")
     List<Winery> all() {
         return repository.findAll();
     }
     // end::get-aggregate-root[]
 
-    @PostMapping("/Winery")
+    @PostMapping("/winery")
     Winery newWinery(@RequestBody Winery newWinery) {
         return repository.save(newWinery);
     }
 
     // Single item
 
-    @GetMapping("/Winery/{id}")
+    @GetMapping("/winery/{id}")
     Winery one(@PathVariable Long id) {
 
         return repository.findById(id)
                 .orElseThrow(() -> new WineryNotFoundException(id));
     }
 
-    @PutMapping("/Winery/{id}")
+    @PutMapping("/winery/{id}")
     Winery replaceWinery(@RequestBody Winery newWinery, @PathVariable Long id) {
 
         return repository.findById(id)
@@ -57,7 +57,7 @@ public class WineryController {
                 });
     }
 
-    @DeleteMapping("/Winery/{id}")
+    @DeleteMapping("/winery/{id}")
     void deleteWinery(@PathVariable Long id) {
         repository.deleteById(id);
     }
