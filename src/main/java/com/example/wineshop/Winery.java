@@ -14,14 +14,22 @@ class Winery {
   @OneToMany
   private List<Wine> wineList;
 
-  Winery() {}
+  public Winery() {}
 
-  Winery(String name, List<Wine> wineList) {
+  public Winery(String name, List<Wine> wineList) {
   this.name = name;
   this.wineList = wineList;
  }
 
- public String getName() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
   return name;
  }
 

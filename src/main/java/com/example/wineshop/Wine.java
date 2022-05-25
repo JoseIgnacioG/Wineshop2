@@ -7,7 +7,6 @@ import java.util.Objects;
 class Wine {
     private @Id @GeneratedValue Long id;
     private String name;
-
     @ManyToOne
     private Winery winery;
     private int year;
@@ -22,9 +21,9 @@ class Wine {
     private int body;
     private int acidity;
 
-    Wine(){}
+    public Wine(){}
 
-    Wine(String name, Winery winery, int year, float rating, int num_reviews, String country, Region region, float price, Type type, int body, int acidity) {
+    public Wine(String name, Winery winery, int year, float rating, int num_reviews, String country, Region region, float price, Type type, int body, int acidity) {
         this.name = name;
         this.winery = winery;
         this.year = year;
