@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 class WineController {
     private final WineRepository repository;
 
-    WineController(WineRepository repository){
+    WineController(WineRepository repository) {
         this.repository = repository;
     }
 
@@ -22,12 +22,12 @@ class WineController {
                 .orElseThrow(() -> new WineNotFoundException(id));
     }
 
-    @PutMapping("/employees/{id}")
+    @PutMapping("/api/wine/{id}")
     Wine replaceEmployee(@RequestBody Wine newWine, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(wine -> {
-                    wine.setName(newWine.getName());
+                    wine.setWine(newWine.getWine());
                     //Modificar bodega (To do)
                     wine.setYear(newWine.getYear());
                     wine.setRating(newWine.getRating());
@@ -47,7 +47,7 @@ class WineController {
                 });
     }
 
-    @DeleteMapping("/employees/{id}")
+    @DeleteMapping("/api/wine/{id}")
     void deleteEmployee(@PathVariable Long id) {
         repository.deleteById(id);
     }

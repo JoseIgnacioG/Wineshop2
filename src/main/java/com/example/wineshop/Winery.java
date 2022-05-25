@@ -11,14 +11,12 @@ class Winery {
 
   private @Id @GeneratedValue Long id;
   private String name;
-  @OneToMany
-  private List<Wine> wineList;
+
 
   public Winery() {}
 
-  public Winery(String name, List<Wine> wineList) {
+  public Winery(String name) {
   this.name = name;
-  this.wineList = wineList;
  }
 
     public Long getId() {
@@ -37,32 +35,24 @@ class Winery {
   this.name = name;
  }
 
- public List<Wine> getWineList() {
-  return wineList;
- }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Winery winery = (Winery) o;
+        return Objects.equals(id, winery.id) && Objects.equals(name, winery.name);
+    }
 
- public void setWineList(List<Wine> wineList) {
-  this.wineList = wineList;
- }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 
- @Override
- public boolean equals(Object o) {
-  if (this == o) return true;
-  if (o == null || getClass() != o.getClass()) return false;
-  Winery winery = (Winery) o;
-  return Objects.equals(name, winery.name) && Objects.equals(wineList, winery.wineList);
- }
-
- @Override
- public int hashCode() {
-  return Objects.hash(name, wineList);
- }
-
- @Override
- public String toString() {
-  return "Winery{" +
-          "name='" + name + '\'' +
-          ", wineList=" + wineList +
-          '}';
- }
+    @Override
+    public String toString() {
+        return "Winery{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -48,7 +48,6 @@ public class WineryController {
         return repository.findById(id)
                 .map(Winery -> {
                     Winery.setName(newWinery.getName());
-                    Winery.setWineList(newWinery.getWineList());
                     return repository.save(Winery);
                 })
                 .orElseGet(() -> {
