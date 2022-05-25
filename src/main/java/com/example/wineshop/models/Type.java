@@ -3,17 +3,22 @@ package com.example.wineshop.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Type {
     private @Id @GeneratedValue Long id;
     private String name;
+    @OneToMany(mappedBy = "type")
+    private List<Wine> wineList;
 
     public Type(){}
 
-    public Type(String name) {
+    public Type(String name, List<Wine> wineList) {
         this.name = name;
+        this.wineList = wineList;
     }
 
     public Long getId() {

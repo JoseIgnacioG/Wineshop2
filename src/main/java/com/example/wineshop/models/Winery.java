@@ -1,5 +1,6 @@
 package com.example.wineshop.models;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -7,15 +8,18 @@ import javax.persistence.*;
 @Entity
 public class Winery {
 
-  private @Id @GeneratedValue Long id;
-  private String name;
+    private @Id @GeneratedValue Long id;
+    private String name;
+    @OneToMany(mappedBy = "winery")
+    private List<Wine> wineList;
 
 
-  public Winery() {}
+    public Winery() {}
 
-  public Winery(String name) {
-  this.name = name;
- }
+    public Winery(String name, List<Wine> wineList) {
+        this.name = name;
+        this.wineList = wineList;
+    }
 
     public Long getId() {
         return id;
@@ -26,12 +30,12 @@ public class Winery {
     }
 
     public String getName() {
-  return name;
- }
+    return name;
+    }
 
- public void setName(String name) {
-  this.name = name;
- }
+    public void setName(String name) {
+    this.name = name;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -51,6 +55,6 @@ public class Winery {
         return "Winery{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                '}';
+        '}';
     }
 }

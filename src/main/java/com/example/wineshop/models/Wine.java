@@ -1,31 +1,35 @@
 package com.example.wineshop.models;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "wines_spa")
 public class Wine {
     private @Id @GeneratedValue Long id;
     private String wine;
     @ManyToOne
+    @JoinColumn(name = "winery_id")
     private Winery winery;
     private int year;
     private float rating;
     private int num_reviews;
     private String country;
     @ManyToOne
+    @JoinColumn(name = "region_id")
     private Region region;
     private float price;
     @ManyToOne
+    @JoinColumn(name = "type_id")
     private Type type;
     private int body;
     private int acidity;
 
     public Wine(){}
 
-    public Wine(String name, Winery winery, int year, float rating, int num_reviews, String country, Region region, float price, Type type, int body, int acidity) {
-        this.wine = name;
+    public Wine(String wine, Winery winery, int year, float rating, int num_reviews, String country, Region region, float price, Type type, int body, int acidity) {
+        this.wine = wine;
         this.winery = winery;
         this.year = year;
         this.rating = rating;

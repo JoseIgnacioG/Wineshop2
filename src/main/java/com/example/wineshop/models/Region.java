@@ -3,6 +3,8 @@ package com.example.wineshop.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -10,14 +12,16 @@ public class Region {
 
     private @Id @GeneratedValue Long id;
     private String name;
-
     private String country;
+    @OneToMany(mappedBy = "region")
+    private List<Wine> wineList;
 
     public Region() {}
 
-    public Region(String name, String country) {
+    public Region(String name, String country, List<Wine> wineList) {
         this.name = name;
         this.country = country;
+        this.wineList = wineList;
     }
 
     public String getCountry() {
@@ -63,6 +67,6 @@ public class Region {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
-                '}';
+        '}';
     }
 }
