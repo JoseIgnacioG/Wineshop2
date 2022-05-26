@@ -10,7 +10,7 @@ public class Winery {
 
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private String name;
-    @OneToMany(mappedBy = "winery")
+    @OneToMany(mappedBy = "winery" , cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Wine> wineList;
 
     public Winery() {}

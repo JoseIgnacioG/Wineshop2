@@ -10,7 +10,7 @@ public class Region {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private String name;
     private String country;
-    @OneToMany(mappedBy = "region")
+    @OneToMany(mappedBy = "region" , cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Wine> wineList;
 
     public Region() {}

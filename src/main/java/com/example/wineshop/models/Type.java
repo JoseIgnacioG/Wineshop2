@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Type {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private String name;
-    @OneToMany(mappedBy = "type")
+    @OneToMany(mappedBy = "type" , cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Wine> wineList;
 
     public Type(){}
