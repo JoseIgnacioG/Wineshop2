@@ -10,26 +10,43 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.reactive.function.BodyInserters;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureWebClient
+@AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class WineControllerTest {
     @MockBean
     WineRepository repository;
     @Autowired
     private WebTestClient webTestClient;
 
+    @Autowired
+    private MockMvc mvc;
+
     @Test
+    public void notAuthenticated() throws Exception {
+        mvc.perform(get("/wines"))
+                .andExpect(status().is3xxRedirection());
+    }
+    @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
     void all() {
 
         webTestClient.get().
@@ -41,6 +58,7 @@ class WineControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
     void testCreateWine() {
 
         Winery winery = new Winery();
@@ -95,6 +113,7 @@ class WineControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
     void testGetWineById()
     {
         Winery winery = new Winery();
@@ -150,6 +169,7 @@ class WineControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
     void testDeleteWine()
     {
         Winery winery = new Winery();
@@ -189,6 +209,7 @@ class WineControllerTest {
 
 
     @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
     void testGetWineNotExist()
     {
 

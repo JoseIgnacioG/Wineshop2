@@ -8,26 +8,44 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.reactive.function.BodyInserters;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureWebClient
+@AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class RegionControllerTest {
 
     @MockBean
     RegionRepository repository;
     @Autowired
     private WebTestClient webTestClient;
+
+    @Autowired
+    private MockMvc mvc;
+
     @Test
+    public void notAuthenticated() throws Exception {
+        mvc.perform(get("/regions"))
+                .andExpect(status().is3xxRedirection());
+    }
+    @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
     void all() {
 
         webTestClient.get().
@@ -38,6 +56,7 @@ class RegionControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
     void testCreateRegion() {
         Region region = new Region();
         region.setId(1L);
@@ -62,6 +81,7 @@ class RegionControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
     void testGetRegionById()
     {
         Region region = new Region();
@@ -86,6 +106,7 @@ class RegionControllerTest {
 
     }
     @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
     void testDeleteRegion()
     {
         Region region = new Region();
@@ -104,6 +125,7 @@ class RegionControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
     void testGetRegionNotExist()
     {
         webTestClient.get().uri("/api/region/{id}", 0)

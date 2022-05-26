@@ -5,31 +5,46 @@ import com.example.wineshop.repositories.TypeRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.reactive.function.BodyInserters;
-import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureWebClient
+@AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class TypeControllerTest {
 
     @MockBean
     TypeRepository repository;
     @Autowired
+    private MockMvc mvc;
+    @Autowired
     private WebTestClient webTestClient;
 
     @Test
-    void all() {
+    public void notAuthenticated() throws Exception {
+        mvc.perform(get("/types"))
+                .andExpect(status().is3xxRedirection());
+    }
 
+    @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    void all() {
         webTestClient.get().
                 uri("/types")
                 .exchange()
@@ -38,7 +53,9 @@ class TypeControllerTest {
 
     }
 
+
     @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
     void testCreateType() {
         Type type = new Type();
         type.setId(1L);
@@ -62,6 +79,7 @@ class TypeControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
     void testGetTypeById()
     {
         Type type = new Type();
@@ -86,6 +104,7 @@ class TypeControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
     void testDeleteType()
     {
         Type type = new Type();
@@ -104,6 +123,7 @@ class TypeControllerTest {
 
 
     @Test
+    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
     void testGetTypeNotExist()
     {
 
@@ -112,4 +132,6 @@ class TypeControllerTest {
                 .expectStatus().isNotFound()
                 .expectHeader().valueEquals("Content-Type", "text/plain;charset=UTF-8");
     }
+
+
 }
