@@ -10,11 +10,14 @@ public class Winery {
 
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private String name;
+    @OneToMany(mappedBy = "winery")
+    private List<Wine> wineList;
 
     public Winery() {}
 
-    public Winery(String name) {
+    public Winery(String name, List<Wine> wineList) {
         this.name = name;
+        this.wineList = wineList;
     }
 
     public Long getId() {
