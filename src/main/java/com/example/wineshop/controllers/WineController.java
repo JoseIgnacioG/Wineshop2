@@ -1,14 +1,12 @@
 package com.example.wineshop.controllers;
 
+import com.example.wineshop.models.Type;
 import com.example.wineshop.models.Wine;
 import com.example.wineshop.exceptions.WineNotFoundException;
 import com.example.wineshop.repositories.WineRepository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class WineController {
@@ -23,6 +21,16 @@ public class WineController {
 
         return repository.findById(id)
                 .orElseThrow(() -> new WineNotFoundException(id));
+    }
+
+    @GetMapping("/wines")
+    List<Wine> all() {
+        return repository.findAll();
+    }
+
+    @PostMapping("/wines")
+    Wine newType(@RequestBody Wine newWine) {
+        return repository.save(newWine);
     }
 
     @PutMapping("/api/wine/{id}")
