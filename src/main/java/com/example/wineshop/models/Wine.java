@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 public class Wine {
-    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private String wine;
     @ManyToOne
     @JoinColumn(name = "winery_id")
