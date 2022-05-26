@@ -1,14 +1,12 @@
 package com.example.wineshop.controllers;
 
+import com.example.wineshop.models.Region;
 import com.example.wineshop.models.Type;
 import com.example.wineshop.exceptions.TypeNotFoundException;
 import com.example.wineshop.repositories.TypeRepository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class TypeController {
@@ -16,6 +14,16 @@ public class TypeController {
 
     TypeController(TypeRepository repository) {
         this.repository = repository;
+    }
+
+    @GetMapping("/types")
+    List<Type> all() {
+        return repository.findAll();
+    }
+
+    @PostMapping("/types")
+    Type newType(@RequestBody Type newType) {
+        return repository.save(newType);
     }
 
     @GetMapping("/api/type/{id}")
