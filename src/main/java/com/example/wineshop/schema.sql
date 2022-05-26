@@ -1,3 +1,4 @@
+SET FOREIGN_KEY_CHECKS=0;
 drop table if exists winery ;
 create table winery
 (
@@ -27,12 +28,17 @@ insert into region (name, id, country) (select distinct region, 0, 'Espana' from
 drop table if exists wine;
 create table wine
 (
-    id        integer auto_increment primary key,
-    name      varchar(255),
-    year      varchar(255),
-    winery_id integer references winery (id),
-    type_id   integer references type (id),
-    region_id integer references region (id)
+    id          integer auto_increment primary key,
+    name        varchar(255),
+    year        varchar(255),
+    acidity     integer,
+    body        integer,
+    num_reviews integer,
+    price       integer,
+    rating      integer,
+    winery_id   integer references winery (id),
+    type_id     integer references type (id),
+    region_id   integer references region (id)
 );
 
 
@@ -40,6 +46,11 @@ insert into wine
 select w.id      as id,
        w.wine    as name,
        w.year    as year,
+       w.acidity as acidity,
+       w.body    as body,
+       w.num_reviews as num_reviews,
+       w.price   as price,
+       w.rating  as rating,
        winery.id as winery_id,
        type.id   as type_id,
        region.id as region_id

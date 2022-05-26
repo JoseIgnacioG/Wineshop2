@@ -38,7 +38,7 @@ public class WineController {
 
         return repository.findById(id)
                 .map(wine -> {
-                    wine.setWine(newWine.getWine());
+                    wine.setName(newWine.getName());
                     //Modificar bodega (To do)
                     wine.setYear(newWine.getYear());
                     wine.setRating(newWine.getRating());

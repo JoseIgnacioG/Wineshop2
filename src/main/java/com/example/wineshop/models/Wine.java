@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 public class Wine {
     private @Id @GeneratedValue Long id;
-    private String wine;
+    private String name;
     @ManyToOne
     @JoinColumn(name = "winery_id")
     private Winery winery;
@@ -28,8 +28,8 @@ public class Wine {
 
     public Wine(){}
 
-    public Wine(String wine, Winery winery, int year, float rating, int num_reviews, String country, Region region, float price, Type type, int body, int acidity) {
-        this.wine = wine;
+    public Wine(String name, Winery winery, int year, float rating, int num_reviews, String country, Region region, float price, Type type, int body, int acidity) {
+        this.name = name;
         this.winery = winery;
         this.year = year;
         this.rating = rating;
@@ -58,12 +58,12 @@ public class Wine {
         this.id = id;
     }
 
-    public String getWine() {
-        return wine;
+    public String getName() {
+        return name;
     }
 
-    public void setWine(String name) {
-        this.wine = name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getYear() {
@@ -143,19 +143,19 @@ public class Wine {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Wine wine = (Wine) o;
-        return year == wine.year && Float.compare(wine.rating, rating) == 0 && num_reviews == wine.num_reviews && Float.compare(wine.price, price) == 0 && body == wine.body && acidity == wine.acidity && Objects.equals(id, wine.id) && Objects.equals(wine, wine.wine) && Objects.equals(country, wine.country) && Objects.equals(region, wine.region) && Objects.equals(type, wine.type);
+        return year == wine.year && Float.compare(wine.rating, rating) == 0 && num_reviews == wine.num_reviews && Float.compare(wine.price, price) == 0 && body == wine.body && acidity == wine.acidity && Objects.equals(id, wine.id) && Objects.equals(name, wine.name) && Objects.equals(country, wine.country) && Objects.equals(region, wine.region) && Objects.equals(type, wine.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, wine, year, rating, num_reviews, country, region, price, type, body, acidity);
+        return Objects.hash(id, name, year, rating, num_reviews, country, region, price, type, body, acidity);
     }
 
     @Override
     public String toString() {
         return "Wine{" +
                 "id=" + id +
-                ", name='" + wine + '\'' +
+                ", name='" + name + '\'' +
                 ", year=" + year +
                 ", rating=" + rating +
                 ", num_reviews=" + num_reviews +
