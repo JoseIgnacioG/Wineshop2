@@ -62,3 +62,8 @@ from wines_spa w
 order by id;
 
 SET FOREIGN_KEY_CHECKS=1;
+
+/*ALTER TABLE `wineshop-spec`.`wines_spa`
+ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (`id`);
+;*/
