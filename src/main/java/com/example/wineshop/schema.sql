@@ -1,4 +1,5 @@
 SET FOREIGN_KEY_CHECKS=0;
+
 drop table if exists winery ;
 create table winery
 (
@@ -55,7 +56,9 @@ select w.id      as id,
        type.id   as type_id,
        region.id as region_id
 from wines_spa w
-    left join winery on winery.name = w.winery
-    left join type on type.name = w.type
-    left join region on region.name = w.region
+         left join winery on winery.name = w.winery
+         left join type on type.name = w.type
+         left join region on region.name = w.region
 order by id;
+
+SET FOREIGN_KEY_CHECKS=1;
