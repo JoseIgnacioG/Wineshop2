@@ -11,7 +11,6 @@ public class Wine {
     private @Id @GeneratedValue Long id;
     private String name;
 
-
     @ManyToOne
     @JoinColumn(name = "winery_id")
     private Winery winery;
