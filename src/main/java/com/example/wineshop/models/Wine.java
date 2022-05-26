@@ -1,5 +1,6 @@
 package com.example.wineshop.models;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -9,6 +10,8 @@ import java.util.Objects;
 public class Wine {
     private @Id @GeneratedValue Long id;
     private String name;
+
+
     @ManyToOne
     @JoinColumn(name = "winery_id")
     private Winery winery;
