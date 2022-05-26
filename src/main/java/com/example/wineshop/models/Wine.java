@@ -18,7 +18,6 @@ public class Wine {
     private int year;
     private float rating;
     private int num_reviews;
-    private String country;
     @ManyToOne
     @JoinColumn(name = "region_id")
     private Region region;
@@ -37,7 +36,6 @@ public class Wine {
         this.year = year;
         this.rating = rating;
         this.num_reviews = num_reviews;
-        this.country = country;
         this.region = region;
         this.price = price;
         this.type = type;
@@ -93,14 +91,6 @@ public class Wine {
         this.num_reviews = num_reviews;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
     public Region getRegion() {
         return region;
     }
@@ -146,12 +136,12 @@ public class Wine {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Wine wine = (Wine) o;
-        return year == wine.year && Float.compare(wine.rating, rating) == 0 && num_reviews == wine.num_reviews && Float.compare(wine.price, price) == 0 && body == wine.body && acidity == wine.acidity && Objects.equals(id, wine.id) && Objects.equals(name, wine.name) && Objects.equals(country, wine.country) && Objects.equals(region, wine.region) && Objects.equals(type, wine.type);
+        return year == wine.year && Float.compare(wine.rating, rating) == 0 && num_reviews == wine.num_reviews && Float.compare(wine.price, price) == 0 && body == wine.body && acidity == wine.acidity && Objects.equals(id, wine.id) && Objects.equals(name, wine.name) && Objects.equals(region, wine.region) && Objects.equals(type, wine.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, year, rating, num_reviews, country, region, price, type, body, acidity);
+        return Objects.hash(id, name, year, rating, num_reviews, region, price, type, body, acidity);
     }
 
     @Override
@@ -162,7 +152,6 @@ public class Wine {
                 ", year=" + year +
                 ", rating=" + rating +
                 ", num_reviews=" + num_reviews +
-                ", country='" + country + '\'' +
                 ", region=" + region +
                 ", price=" + price +
                 ", type=" + type +

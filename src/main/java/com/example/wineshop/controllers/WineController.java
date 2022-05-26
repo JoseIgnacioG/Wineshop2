@@ -43,7 +43,6 @@ public class WineController {
                     wine.setYear(newWine.getYear());
                     wine.setRating(newWine.getRating());
                     wine.setNum_reviews(newWine.getNum_reviews());
-                    wine.setCountry(newWine.getCountry());
                     //Modificar region (To do)
                     wine.setPrice(newWine.getPrice());
                     //Modificar type (To do)
