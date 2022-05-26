@@ -38,14 +38,14 @@ public class WineryController {
 
     // Single item
 
-    @GetMapping("/winery/{id}")
+    @GetMapping("/api/winery/{id}")
     Winery one(@PathVariable Long id) {
 
         return repository.findById(id)
                 .orElseThrow(() -> new WineryNotFoundException(id));
     }
 
-    @PutMapping("/winery/{id}")
+    @PutMapping("/api/winery/{id}")
     Winery replaceWinery(@RequestBody Winery newWinery, @PathVariable Long id) {
 
         return repository.findById(id)
@@ -59,7 +59,7 @@ public class WineryController {
                 });
     }
 
-    @DeleteMapping("/winery/{id}")
+    @DeleteMapping("/api/winery/{id}")
     void deleteWinery(@PathVariable Long id) {
         repository.deleteById(id);
     }

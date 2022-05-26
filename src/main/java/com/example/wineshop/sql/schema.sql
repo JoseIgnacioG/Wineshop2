@@ -23,7 +23,7 @@ create table region
     name    varchar(255),
     country varchar(255)
 );
-insert into region (name, id, country) (select distinct region, 0, 'Espana' from wines_spa);
+insert into region (name, id, country) (select distinct region, 0, 'Espana' from wines_spa WHERE region <> 'NA');
 
 
 drop table if exists wine;
@@ -62,8 +62,20 @@ from wines_spa w
 order by id;
 
 SET FOREIGN_KEY_CHECKS=1;
-
-/*ALTER TABLE `wineshop-spec`.`wines_spa`
+/*
+ALTER TABLE `gft11`.`wines_spa`
 ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
 ADD PRIMARY KEY (`id`);
-;*/
+ */
+
+alter table wine
+    ADD constraint FK6pkmh68x0mq5u913rsad7yrpn
+        foreign key (winery_id) references winery (id) ON DELETE CASCADE;
+
+alter table wine
+    add constraint FK9cr87y6y83vjiu6hh6gqchmb2
+        foreign key (type_id) references type (id) ON DELETE CASCADE;
+
+alter table wine
+    add constraint FKg8nm9gi93gvmhoadp74owq5cj
+        foreign key (region_id) references region (id) ON DELETE CASCADE;

@@ -38,14 +38,14 @@ public class RegionController {
 
     // Single item
 
-    @GetMapping("/region/{id}")
+    @GetMapping("/api/region/{id}")
     Region one(@PathVariable Long id) {
 
         return repository.findById(id)
                 .orElseThrow(() -> new RegionNotFoundException(id));
     }
 
-    @PutMapping("/region/{id}")
+    @PutMapping("/api/region/{id}")
     Region replaceRegion(@RequestBody Region newRegion, @PathVariable Long id) {
 
         return repository.findById(id)
@@ -60,7 +60,7 @@ public class RegionController {
                 });
     }
 
-    @DeleteMapping("/region/{id}")
+    @DeleteMapping("/api/region/{id}")
     void deleteRegion(@PathVariable Long id) {
         repository.deleteById(id);
     }
