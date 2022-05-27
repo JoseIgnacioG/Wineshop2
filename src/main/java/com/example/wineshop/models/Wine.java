@@ -1,30 +1,59 @@
 package com.example.wineshop.models;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
 public class Wine {
+
+    int actualYear = LocalDate.now().getYear();
+
     private @Id @GeneratedValue Long id;
+
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "winery_id")
+    @NotEmpty
     private Winery winery;
+
+    @Min(1900) /*@Max(actualYear)*/ @NotEmpty
     private int year;
+
+    @Min(0) @Max(5) @NotEmpty
     private float rating;
+
+    @Min(0) @NotEmpty
     private int num_reviews;
+
     @ManyToOne
     @JoinColumn(name = "region_id")
+    @NotEmpty
     private Region region;
+
+    @Min(0) @NotEmpty
     private float price;
+
     @ManyToOne
     @JoinColumn(name = "type_id")
+    @NotEmpty
     private Type type;
+
+    @Min(1) @Max(5) @NotEmpty
     private int body;
+
+    @Min(1) @Max(5) @NotEmpty
     private int acidity;
 
     public Wine(){}
