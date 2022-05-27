@@ -37,16 +37,16 @@ class WineControllerTest {
     @Autowired
     private WebTestClient webTestClient;
 
-    @Autowired
-    private MockMvc mvc;
 
     @Test
     public void notAuthenticated() throws Exception {
-        mvc.perform(get("/wines"))
-                .andExpect(status().is3xxRedirection());
+        webTestClient.get().
+                uri("/wines")
+                .exchange()
+                .expectStatus().is3xxRedirection();
     }
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void all() {
 
         webTestClient.get().
@@ -58,7 +58,7 @@ class WineControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void testCreateWine() {
 
         Winery winery = new Winery();
@@ -113,7 +113,7 @@ class WineControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void testGetWineById()
     {
         Winery winery = new Winery();
@@ -169,7 +169,7 @@ class WineControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void testDeleteWine()
     {
         Winery winery = new Winery();
@@ -209,7 +209,7 @@ class WineControllerTest {
 
 
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void testGetWineNotExist()
     {
 

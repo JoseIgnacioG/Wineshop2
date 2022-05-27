@@ -43,16 +43,15 @@ class WineryControllerTest {
     WineryRepository repository;
     @Autowired
     private WebTestClient webTestClient;
-    @Autowired
-    private MockMvc mvc;
 
     @Test
-    public void notAuthenticated() throws Exception {
-        mvc.perform(get("/winerys"))
-                .andExpect(status().is3xxRedirection());
+    void notAuthenticated() {
+        this.webTestClient.get().uri("/winerys")
+                .exchange()
+                .expectStatus().is3xxRedirection();
     }
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void all() {
         webTestClient.get().
                 uri("/winerys")
@@ -62,15 +61,10 @@ class WineryControllerTest {
 
     }
 
-    @Test
-    public void get_noAuth_returnsRedirectLogin() {
-        this.webTestClient.get().uri("/winerys")
-                .exchange()
-                .expectStatus().is3xxRedirection();
-    }
+
 
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void testCreateWinery() {
         Winery winery = new Winery();
         winery.setId(1L);
@@ -94,7 +88,7 @@ class WineryControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void testGetWineryById()
     {
         Winery winery = new Winery();
@@ -119,7 +113,7 @@ class WineryControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void testDeleteWinery()
     {
         Winery winery = new Winery();
@@ -138,7 +132,7 @@ class WineryControllerTest {
 
 
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void testGetWineryNotExist()
     {
 

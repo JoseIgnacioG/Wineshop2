@@ -32,18 +32,18 @@ class TypeControllerTest {
     @MockBean
     TypeRepository repository;
     @Autowired
-    private MockMvc mvc;
-    @Autowired
     private WebTestClient webTestClient;
 
     @Test
     public void notAuthenticated() throws Exception {
-        mvc.perform(get("/types"))
-                .andExpect(status().is3xxRedirection());
+        webTestClient.get().
+                uri("/types")
+                .exchange()
+                .expectStatus().is3xxRedirection();
     }
 
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void all() {
         webTestClient.get().
                 uri("/types")
@@ -55,7 +55,7 @@ class TypeControllerTest {
 
 
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void testCreateType() {
         Type type = new Type();
         type.setId(1L);
@@ -79,7 +79,7 @@ class TypeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void testGetTypeById()
     {
         Type type = new Type();
@@ -104,7 +104,7 @@ class TypeControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void testDeleteType()
     {
         Type type = new Type();
@@ -123,7 +123,7 @@ class TypeControllerTest {
 
 
     @Test
-    @WithMockUser(username = "ben", password = "benspassword", roles = "USER")
+    @WithMockUser
     void testGetTypeNotExist()
     {
 
@@ -132,6 +132,5 @@ class TypeControllerTest {
                 .expectStatus().isNotFound()
                 .expectHeader().valueEquals("Content-Type", "text/plain;charset=UTF-8");
     }
-
 
 }
