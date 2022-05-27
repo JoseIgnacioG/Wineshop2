@@ -17,8 +17,6 @@ import java.util.Objects;
 @Entity
 public class Wine {
 
-    int actualYear = LocalDate.now().getYear();
-
     private @Id @GeneratedValue Long id;
 
     private String name;
@@ -28,7 +26,7 @@ public class Wine {
     @NotEmpty
     private Winery winery;
 
-    @Min(1900) /*@Max(actualYear)*/ @NotEmpty
+    @Min(1900) @Max(2099) @NotEmpty /*private static int actualYear = LocalDate.now().getYear();*/
     private int year;
 
     @Min(0) @Max(5) @NotEmpty
