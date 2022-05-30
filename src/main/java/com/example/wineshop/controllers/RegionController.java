@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 public class RegionController {
 
@@ -32,7 +34,7 @@ public class RegionController {
     // end::get-aggregate-root[]
 
     @PostMapping("/region")
-    Region newRegion(@RequestBody Region newRegion) {
+    Region newRegion(@Valid @RequestBody Region newRegion) {
         return repository.save(newRegion);
     }
 
@@ -46,7 +48,7 @@ public class RegionController {
     }
 
     @PutMapping("/api/region/{id}")
-    Region replaceRegion(@RequestBody Region newRegion, @PathVariable Long id) {
+    Region replaceRegion(@Valid @RequestBody Region newRegion, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(Region -> {

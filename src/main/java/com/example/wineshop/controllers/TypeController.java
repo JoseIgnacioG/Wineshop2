@@ -6,6 +6,7 @@ import com.example.wineshop.exceptions.TypeNotFoundException;
 import com.example.wineshop.repositories.TypeRepository;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class TypeController {
     }
 
     @PostMapping("/types")
-    Type newType(@RequestBody Type newType) {
+    Type newType(@Valid @RequestBody Type newType) {
         return repository.save(newType);
     }
 
@@ -34,7 +35,7 @@ public class TypeController {
     }
 
     @PutMapping("/api/type/{id}")
-    Type replaceEmployee(@RequestBody Type newType, @PathVariable Long id) {
+    Type replaceEmployee(@Valid @RequestBody Type newType, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(type -> {

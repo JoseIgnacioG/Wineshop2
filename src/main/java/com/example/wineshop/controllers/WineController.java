@@ -6,11 +6,16 @@ import com.example.wineshop.exceptions.WineNotFoundException;
 import com.example.wineshop.repositories.WineRepository;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 public class WineController {
     private final WineRepository repository;
+
+    public WineController() {
+        repository = null;
+    }
 
     WineController(WineRepository repository) {
         this.repository = repository;
@@ -29,12 +34,12 @@ public class WineController {
     }
 
     @PostMapping("/wines")
-    Wine newType(@RequestBody Wine newWine) {
+    Wine newType(@Valid @RequestBody Wine newWine) {
         return repository.save(newWine);
     }
 
     @PutMapping("/api/wine/{id}")
-    Wine replaceEmployee(@RequestBody Wine newWine, @PathVariable Long id) {
+    Wine replaceEmployee(@Valid @RequestBody Wine newWine, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(wine -> {

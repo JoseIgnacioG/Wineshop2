@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 public class WineryController {
 
@@ -32,7 +34,7 @@ public class WineryController {
     // end::get-aggregate-root[]
 
     @PostMapping("/winery")
-    Winery newWinery(@RequestBody Winery newWinery) {
+    Winery newWinery(@Valid @RequestBody Winery newWinery) {
         return repository.save(newWinery);
     }
 
@@ -46,7 +48,7 @@ public class WineryController {
     }
 
     @PutMapping("/api/winery/{id}")
-    Winery replaceWinery(@RequestBody Winery newWinery, @PathVariable Long id) {
+    Winery replaceWinery(@Valid @RequestBody Winery newWinery, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(Winery -> {
